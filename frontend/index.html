@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Expense Dashboard</title>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Expense Tracker</h1>
+    <div class="controls">
+      <label>Người dùng:
+        <input id="userIdInput" type="number" min="1" value="1" />
+      </label>
+      <label>Chọn tháng:
+        <input id="monthPicker" type="month" />
+      </label>
+      <button id="refreshBtn">Tải lại</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card" id="monthlyCard">
+      <h2>Báo cáo tháng</h2>
+      <div class="summary">
+        <div class="kpi">
+          <div class="kpi-title">Tổng chi</div>
+          <div id="totalSpent" class="kpi-value">0 VNĐ</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-title">Định mức</div>
+          <div id="limitAmount" class="kpi-value">0 VNĐ</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-title">Tỷ lệ</div>
+          <div id="percent" class="kpi-value">0%</div>
+        </div>
+      </div>
+
+      <div id="alertBox" class="alert" style="display:none"></div>
+
+      <div class="charts-row">
+        <canvas id="pieChart" width="400" height="250"></canvas>
+        <div class="transactions-list">
+          <h3>Giao dịch (tháng)</h3>
+          <table id="txTable">
+            <thead><tr><th>Ngày</th><th>Thể loại</th><th>Ghi chú</th><th>Số tiền</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="yearlyCard">
+      <h2>Thống kê năm</h2>
+      <div class="controls-inline">
+        <label>Năm:
+          <input id="yearInput" type="number" value="" min="2000" max="2099" />
+        </label>
+      </div>
+      <canvas id="barChart" width="900" height="300"></canvas>
+    </section>
+
+    <section class="card" id="formsCard">
+      <h2>Thêm giao dịch / Đặt định mức</h2>
+
+      <form id="addTxForm" class="form">
+        <h3>Thêm giao dịch</h3>
+        <div class="form-row">
+          <label>Thể loại
+            <select id="categorySelect"><option value="">-- chọn --</option></select>
+          </label>
+          <label>Số tiền
+            <input id="txAmount" type="number" step="1" min="0" required />
+          </label>
+          <label>Ngày
+            <input id="txDate" type="date" required />
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Ghi chú
+            <input id="txNote" type="text" />
+          </label>
+          <button type="submit">Thêm</button>
+        </div>
+      </form>
+
+      <form id="setBudgetForm" class="form">
+        <h3>Đặt định mức tháng</h3>
+        <div class="form-row">
+          <label>Tháng
+            <input id="budgetMonth" type="month" required />
+          </label>
+          <label>Định mức (VNĐ)
+            <input id="budgetAmount" type="number" required />
+          </label>
+        </div>
+        <button type="submit">Lưu định mức</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>Made with ♥ — Local demo</small>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
